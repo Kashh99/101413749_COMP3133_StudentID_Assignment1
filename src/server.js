@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 const typeDefs = require('./typeDefs');
 const resolvers = require('./resolvers');
 const authMiddleware = require('./middleware/auth');
+
 dotenv.config();
 
 // Initialize Express app
@@ -42,9 +43,14 @@ async function startServer() {
   // Connect to MongoDB
   connectDB();
 
+  // default route for the home page
+  app.get('/', (req, res) => {
+    res.send("🚀 Employee Management System API is Live! Visit /graphql to access the GraphQL API.");
+  });
+
   const PORT = process.env.PORT || 4000;
   app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}${server.graphqlPath}`);
+    console.log(`🚀 Server running at http://localhost:${PORT}${server.graphqlPath}`);
   });
 }
 
